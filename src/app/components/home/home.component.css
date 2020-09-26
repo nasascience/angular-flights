@@ -53,12 +53,12 @@
 
 .aircraft-header-col{
   height: 28px;
-  width: 170px;
+  width: 168px;
   border: 1px solid black;
 }
 
 .aircraft-reg-col{
-  width: 170px;
+  width: 168px;
   display: inline-block;
   height: 100%;
   border-right: 1px solid grey;
@@ -67,14 +67,11 @@
 
 .aircraft-flights-col{
   display: inline-block;
-  width: calc(100% - 170px);
+  width: calc(100% - 168px);
   height: 100%;
   overflow-x: auto;
   overflow-y: hidden;
 }
-
-.aircraft-flights-table td {   width: 170px; }
-
 
 .aircraft-reg-container{
   margin-top: 28px;
@@ -102,7 +99,7 @@
 }
 
 .flight-date-col{
-  width: 170px;
+  width: 168px;
   border: 1px solid #656565;
   display: inline-block;
   height: 100%;
@@ -117,7 +114,7 @@
 }
 
 .flight-col{
-  width: 170px;
+  width: 168px;
   border: 1px solid #656565;
   display: inline-block;
   height: 100%;
