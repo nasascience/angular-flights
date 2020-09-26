@@ -109,6 +109,7 @@
 }
 
 .flight-row{
+  position: relative;
   height: 45px;
   width: max-content;
 }
@@ -125,4 +126,13 @@
   background-repeat: no-repeat;
   background-position: 0% 0%;
   background-size: 100% 100%;
+}
+
+.flight-duration{
+  position: absolute;
+  height: 44px;
+  width: 7px;
+  top: 0;
+  left: 0;
+  background: #45a6f9;
 }

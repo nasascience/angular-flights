@@ -57,98 +57,16 @@
 
           <!-- FLIGHTS DATA -->
           <div class="aircraft-flights-col">
-            <div class="aircraft-flights-table">
+            <div *ngIf="flightsData" class="aircraft-flights-table">
               <div class="flight-date-row">
-                  <div class="flight-date-col">02-09-2020</div>
-                  <div class="flight-date-col">03-09-2020</div>
-                  <div class="flight-date-col">04-09-2020</div>
-                  <div class="flight-date-col">05-09-2020</div>
-                  <div class="flight-date-col">06-09-2020</div>
-                  <div class="flight-date-col">07-09-2020</div>
-                  <div class="flight-date-col">08-09-2020</div>
-                  <div class="flight-date-col">09-09-2020</div>
-                  <div class="flight-date-col">10-09-2020</div>
-                  <div class="flight-date-col">11-09-2020</div>
-                  <div class="flight-date-col">12-09-2020</div>
-                  <div class="flight-date-col">13-09-2020</div>
-                  <div class="flight-date-col">14-09-2020</div>
-                  <div class="flight-date-col">15-09-2020</div>
-                  <div class="flight-date-col">16-09-2020</div>
-                  <div class="flight-date-col">17-09-2020</div>
+                  <div *ngFor="let flightDate of flightDates" class="flight-date-col {{flightDate | date: 'yyyy-MM-dd'}}">{{flightDate | date: 'dd-MM-yyyy'}}</div>
               </div>
-              <div  *ngFor="let i of [].constructor(aircrafts.length)" class="flight-row">
-                  <div class="flight-col"></div>
-                  <div class="flight-col"></div>
-                  <div class="flight-col"></div>
-                  <div class="flight-col"></div>
-                  <div class="flight-col"></div>
-                  <div class="flight-col"></div>
-                  <div class="flight-col"></div>
-                  <div class="flight-col"></div>
-                  <div class="flight-col"></div>
-                  <div class="flight-col"></div>
-                  <div class="flight-col"></div>
-                  <div class="flight-col"></div>
-                  <div class="flight-col"></div>
-                  <div class="flight-col"></div>
-                  <div class="flight-col"></div>
-                  <div class="flight-col"></div>
+              <div *ngFor="let i of [].constructor(aircrafts.length)" class="flight-row">
+                  <div *ngFor="let c of [].constructor(flightDates.length)" class="flight-col"></div>
+                  <div *ngFor="let flight of flightsData" class="flight-duration" [ngStyle]="setFlightDuration(flight)"></div>
                 </div>
             </div>
           </div>
-
-
-          <!--  -->
-          <!-- <div class="aircraft-flights-col">
-            <div class="flight-date-row">
-              <div class="flight-date-col"></div>
-              <div class="flight-date-col"></div>
-              <div class="flight-date-col"></div>
-              <div class="flight-date-col"></div>
-              <div class="flight-date-col"></div>
-              <div class="flight-date-col"></div>
-              <div class="flight-date-col"></div>
-            </div>
-            <div class="flight-row">
-              <div class="flight-col"></div>
-              <div class="flight-col"></div>
-              <div class="flight-col"></div>
-              <div class="flight-col"></div>
-              <div class="flight-col"></div>
-              <div class="flight-col"></div>
-              <div class="flight-col"></div>
-            </div>
-            <div class="flight-row">
-              <div class="flight-col"></div>
-              <div class="flight-col"></div>
-              <div class="flight-col"></div>
-              <div class="flight-col"></div>
-              <div class="flight-col"></div>
-              <div class="flight-col"></div>
-              <div class="flight-col"></div>
-            </div>
-            <div class="flight-row">
-              <div class="flight-col"></div>
-              <div class="flight-col"></div>
-              <div class="flight-col"></div>
-              <div class="flight-col"></div>
-              <div class="flight-col"></div>
-              <div class="flight-col"></div>
-              <div class="flight-col"></div>
-            </div>
-            <div class="flight-row">
-              <div class="flight-col"></div>
-              <div class="flight-col"></div>
-              <div class="flight-col"></div>
-              <div class="flight-col"></div>
-              <div class="flight-col"></div>
-              <div class="flight-col"></div>
-              <div class="flight-col"></div>
-            </div>
-          </div> -->
-          <!-- <div class="aircraft-header-col" style="border-top: 0;"></div> -->
-
-
         </div>
 
         <!-- FOOTER -->

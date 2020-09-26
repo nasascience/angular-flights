@@ -1,8 +1,8 @@
 export interface IFutureFlight{
-  arrivalDate: Date
+  arrivalDate: string
 	arrivalPoint: string
 	arrivalTime: string
-	departureDate: Date
+	departureDate: string
 	departurePoint: string
 	departureTime: string
 	flightReference: string
