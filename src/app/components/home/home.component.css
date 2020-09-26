@@ -26,3 +26,106 @@
 .calendar-icon{
   width: 100%;
 }
+
+.zoom-range {
+  width: 200px;
+  float: right;
+  text-align: center;
+}
+
+.fa-search-minus{
+  cursor: pointer;
+  margin-top: 1px;
+  float: left;
+}
+
+.fa-search-plus{
+  cursor: pointer;
+  margin-top: 1px;
+  float: right;
+}
+
+.flights-body{
+  padding: 0;
+  height: 208px;
+  width: 100%;
+}
+
+.aircraft-header-col{
+  height: 28px;
+  width: 170px;
+  border: 1px solid black;
+}
+
+.aircraft-reg-col{
+  width: 170px;
+  display: inline-block;
+  height: 100%;
+  border-right: 1px solid grey;
+}
+
+
+.aircraft-flights-col{
+  display: inline-block;
+  width: calc(100% - 170px);
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.aircraft-flights-table td {   width: 170px; }
+
+
+.aircraft-reg-container{
+  margin-top: 28px;
+  height: 180px;
+  border-bottom: 1px solid gray;
+}
+
+.aircraft-reg-item{
+  position: relative;
+  text-align: center;
+  height: 45px;
+  line-height: 45px;
+  border-top: 1px solid gray;
+}
+
+.aircraft-reg-name{
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+.flight-date-row{
+  height: 29px;
+  width: max-content;
+}
+
+.flight-date-col{
+  width: 170px;
+  border: 1px solid #656565;
+  display: inline-block;
+  height: 100%;
+  margin-left: -1px;
+  text-align: center;
+  border-top: none;
+}
+
+.flight-row{
+  height: 45px;
+  width: max-content;
+}
+
+.flight-col{
+  width: 170px;
+  border: 1px solid #656565;
+  display: inline-block;
+  height: 100%;
+  margin-left: -1px;
+  text-align: center;
+  border-top: none;
+  background: url(https://raw.githubusercontent.com/nasascience/angular-flights/master/src/assets/images/Pixel_grid_.png);
+  background-repeat: no-repeat;
+  background-position: 0% 0%;
+  background-size: 100% 100%;
+}

@@ -1,47 +1,165 @@
-<div class="container" style="margin-top: 100px;">
+<div class="container" style="margin-top: 100px">
   <div class="row">
     <div class="col-md-12">
       <div class="card">
+        <!-- HEADER -->
         <div class="card-header">
           <!-- Dropdown -->
           <div class="row">
             <div class="col">
               <div ngbDropdown class="d-inline-block">
-                <button class="btn btn-outline-secondary" id="aircraftDropdown" ngbDropdownToggle>SELECT AIRCRAFT</button>
+                <button
+                  class="btn btn-outline-secondary"
+                  id="aircraftDropdown"
+                  ngbDropdownToggle
+                >
+                  SELECT AIRCRAFT
+                </button>
                 <div ngbDropdownMenu aria-labelledby="aircraftDropdown">
                   <ul class="dropdownlist">
-                    <!-- <li class="ms-select-all selected">
-                      <label (click)="toggleAllCheckboxes()">
-                        <input id="all_checkboxes" type="checkbox" data-name="selectAll" checked="checked"><span class="dp_item">[Select all]</span>
-                      </label>
-                    </li> -->
-                    <li *ngFor="let aircraft of aircrafts;" class="selected">
+                    <li *ngFor="let aircraft of aircrafts" class="selected">
                       <label class="">
-                        <input type="checkbox" value="aircraft" checked="checked" (click)="filterAircraft(aircraft)">
-                        <span class="dp_item">{{aircraft}}</span>
+                        <input
+                          type="checkbox"
+                          value="aircraft"
+                          checked="checked"
+                          (click)="filterAircraft(aircraft)"
+                        />
+                        <span class="dp_item">{{ aircraft }}</span>
                       </label>
                     </li>
-                    <li *ngIf="aircrafts.length == 0" class="ms-no-results">No aircrafts found</li>
+                    <li *ngIf="aircrafts.length == 0" class="ms-no-results">
+                      No aircrafts found
+                    </li>
                   </ul>
                 </div>
               </div>
             </div>
 
             <div class="calendar-container">
-              <span class="calendar-today">{{ date  | date: 'dd'}}</span>
-              <img class="calendar-icon" src="https://raw.githubusercontent.com/nasascience/angular-flights/master/src/assets/images/calendar.png">
+              <span class="calendar-today">{{ date | date: "dd" }}</span>
+              <img
+                class="calendar-icon"
+                src="https://raw.githubusercontent.com/nasascience/angular-flights/master/src/assets/images/calendar.png"
+              />
+            </div>
+          </div>
+        </div>
+        <!-- BODY -->
+        <div class="card-body flights-body">
+          <!-- AIRCRAFT REG -->
+          <div class="aircraft-reg-col">
+            <div class="aircraft-reg-container">
+              <div *ngFor="let aircrafReg of aircrafts" class="aircraft-reg-item"><span class="aircraft-reg-name">{{aircrafReg}}</span></div>
             </div>
 
           </div>
 
+          <!-- FLIGHTS DATA -->
+          <div class="aircraft-flights-col">
+            <div class="aircraft-flights-table">
+              <div class="flight-date-row">
+                  <div class="flight-date-col">02-09-2020</div>
+                  <div class="flight-date-col">03-09-2020</div>
+                  <div class="flight-date-col">04-09-2020</div>
+                  <div class="flight-date-col">05-09-2020</div>
+                  <div class="flight-date-col">06-09-2020</div>
+                  <div class="flight-date-col">07-09-2020</div>
+                  <div class="flight-date-col">08-09-2020</div>
+                  <div class="flight-date-col">09-09-2020</div>
+                  <div class="flight-date-col">10-09-2020</div>
+                  <div class="flight-date-col">11-09-2020</div>
+                  <div class="flight-date-col">12-09-2020</div>
+                  <div class="flight-date-col">13-09-2020</div>
+                  <div class="flight-date-col">14-09-2020</div>
+                  <div class="flight-date-col">15-09-2020</div>
+                  <div class="flight-date-col">16-09-2020</div>
+                  <div class="flight-date-col">17-09-2020</div>
+              </div>
+              <div class="flight-row">
+                  <div class="flight-col">item1</div>
+                  <div class="flight-col">item2</div>
+                  <div class="flight-col">item3</div>
+                  <div class="flight-col">item4</div>
+                  <div class="flight-col">item5</div>
+                  <div class="flight-col">item6</div>
+                  <div class="flight-col">item7</div>
+                  <div class="flight-col">item8</div>
+                  <div class="flight-col">item9</div>
+                  <div class="flight-col">item10</div>
+                  <div class="flight-col">item11</div>
+                  <div class="flight-col">item12</div>
+                  <div class="flight-col">item13</div>
+                  <div class="flight-col">item14</div>
+                  <div class="flight-col">item15</div>
+                  <div class="flight-col">item16</div>
+                </div>
+            </div>
+          </div>
+
+
+          <!--  -->
+          <!-- <div class="aircraft-flights-col">
+            <div class="flight-date-row">
+              <div class="flight-date-col"></div>
+              <div class="flight-date-col"></div>
+              <div class="flight-date-col"></div>
+              <div class="flight-date-col"></div>
+              <div class="flight-date-col"></div>
+              <div class="flight-date-col"></div>
+              <div class="flight-date-col"></div>
+            </div>
+            <div class="flight-row">
+              <div class="flight-col"></div>
+              <div class="flight-col"></div>
+              <div class="flight-col"></div>
+              <div class="flight-col"></div>
+              <div class="flight-col"></div>
+              <div class="flight-col"></div>
+              <div class="flight-col"></div>
+            </div>
+            <div class="flight-row">
+              <div class="flight-col"></div>
+              <div class="flight-col"></div>
+              <div class="flight-col"></div>
+              <div class="flight-col"></div>
+              <div class="flight-col"></div>
+              <div class="flight-col"></div>
+              <div class="flight-col"></div>
+            </div>
+            <div class="flight-row">
+              <div class="flight-col"></div>
+              <div class="flight-col"></div>
+              <div class="flight-col"></div>
+              <div class="flight-col"></div>
+              <div class="flight-col"></div>
+              <div class="flight-col"></div>
+              <div class="flight-col"></div>
+            </div>
+            <div class="flight-row">
+              <div class="flight-col"></div>
+              <div class="flight-col"></div>
+              <div class="flight-col"></div>
+              <div class="flight-col"></div>
+              <div class="flight-col"></div>
+              <div class="flight-col"></div>
+              <div class="flight-col"></div>
+            </div>
+          </div> -->
+          <!-- <div class="aircraft-header-col" style="border-top: 0;"></div> -->
+
+
         </div>
-        <div class="card-body">
-          <h5 class="card-title">Special title treatment</h5>
-          <p class="card-text">
-            With supporting text below as a natural lead-in to additional
-            content.
-          </p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
+
+        <!-- FOOTER -->
+        <div class="card-footer text-muted">
+
+          <div class="zoom-range">
+            <span class="fas fa-search-minus"></span>
+            <input style="width: 150px;" type="range" class="custom-range" min="0" max="100" />
+            <span class="fas fa-search-plus"></span>
+          </div>
+
         </div>
       </div>
     </div>
