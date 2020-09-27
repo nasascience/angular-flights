@@ -18,3 +18,11 @@
   margin: auto;
 }
 
+.tooltip{
+  font-size: .6em;
+  margin-top: 5px;
+}
+
+.tooltip-inner{
+  padding: .1rem .4rem;
+}

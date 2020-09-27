@@ -9,10 +9,15 @@ export class LoaderService {
   constructor() { }
 
   showLoader(){
+    // const node = document.querySelector("#spinner") as HTMLElement;
+    // node.style.display = 'block'
+    //document.querySelector("#spinner").style.display = 'none'//$("#spinner").show()
     $("#spinner").show()
   }
 
   hideLoader(){
+    // const node = document.querySelector("#spinner") as HTMLElement;
+    // node.style.display = 'none'
     $("#spinner").hide()
   }
 }

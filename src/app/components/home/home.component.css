@@ -1,3 +1,7 @@
+.card-body{
+  padding: 0; overflow: auto;
+}
+
 .dropdownlist {
   padding-left: 20px;
   list-style: none;
@@ -5,17 +9,17 @@
   margin-bottom: 0;
 }
 
-.dp_item{
+.dp_item {
   margin-left: 10px;
 }
 
-.calendar-container{
+.calendar-container {
   width: 40px;
-    text-align: center;
-    margin-right: 20px;
+  text-align: center;
+  margin-right: 20px;
 }
 
-.calendar-today{
+.calendar-today {
   position: absolute;
   top: 20px;
   margin-left: 10px;
@@ -23,49 +27,57 @@
   color: #707070;
 }
 
-.calendar-icon{
+.calendar-icon {
   width: 100%;
 }
 
 .zoom-range {
-  width: 200px;
+  width: 240px;
   float: right;
   text-align: center;
 }
 
-.fa-search-minus{
+.zoom-minus-btn {
   cursor: pointer;
   margin-top: 1px;
   float: left;
 }
 
-.fa-search-plus{
+.zoom-plus-btn {
   cursor: pointer;
   margin-top: 1px;
   float: right;
 }
 
-.flights-body{
+.zoom-reset-btn{
+  cursor: pointer;
+  margin-top: 1px;
+  float: left;
+  margin-left: 20px;
+  margin-right: 7px;
+
+}
+
+.flights-body {
   padding: 0;
   height: 225px;
   width: 100%;
 }
 
-.aircraft-header-col{
+.aircraft-header-col {
   height: 28px;
   width: 168px;
   border: 1px solid black;
 }
 
-.aircraft-reg-col{
+.aircraft-reg-col {
   width: 168px;
   display: inline-block;
   height: 100%;
   border-right: 1px solid grey;
 }
 
-
-.aircraft-flights-col{
+.aircraft-flights-col {
   display: inline-block;
   width: calc(100% - 168px);
   height: 100%;
@@ -73,13 +85,13 @@
   overflow-y: hidden;
 }
 
-.aircraft-reg-container{
+.aircraft-reg-container {
   margin-top: 28px;
   height: 180px;
   border-bottom: 1px solid gray;
 }
 
-.aircraft-reg-item{
+.aircraft-reg-item {
   position: relative;
   text-align: center;
   height: 45px;
@@ -87,18 +99,18 @@
   border-top: 1px solid gray;
 }
 
-.aircraft-reg-name{
+.aircraft-reg-name {
   position: absolute;
   left: 0;
   right: 0;
 }
 
-.flight-date-row{
+.flight-date-row {
   height: 29px;
   width: max-content;
 }
 
-.flight-date-col{
+.flight-date-col {
   width: 168px;
   border: 1px solid #656565;
   display: inline-block;
@@ -108,13 +120,13 @@
   border-top: none;
 }
 
-.flight-row{
+.flight-row {
   position: relative;
   height: 45px;
   width: max-content;
 }
 
-.flight-col{
+.flight-col {
   width: 168px;
   border: 1px solid #656565;
   display: inline-block;
@@ -128,11 +140,14 @@
   background-size: 100% 100%;
 }
 
-.flight-duration{
+.flight-duration {
   position: absolute;
   height: 44px;
   width: 7px;
   top: 0;
   left: 0;
-  background: #45a6f9;
+  background: #45a6f9c2;
+  border-left: 1px solid #368cd6;
+  border-right: 1px solid #368cd6;
 }
+
