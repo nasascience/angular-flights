@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FutureFlightsService } from '../../services/future-flights/future-flights.service';
 import { IFutureFlight } from '../../interfaces/future-flight'
 import { LoaderService } from '../../services/loader/loader.service'
-import { AlertsService } from '../../services/alerts/alerts.service'
+import { HelperService } from '../../services/helper/helper.service'
 import { FlightHourFriendlyPipe } from '../../pipes/flight-hour-friendly.pipe'
 
 
@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private futureFlightsService: FutureFlightsService,
     private loaderService: LoaderService,
-    private alertsService: AlertsService) { }
+    private helperService: HelperService) { }
 
   ngOnInit(): void {
     this.selectedAircrafts = this.aircrafts
@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit {
         this.buildDateColumns(data)
         this.loaderService.hideLoader()
       }, error => {
-        alert(error.message)//this.alertsService.showDanger("error: " + error.message, 4)
+        alert(error.message)//this.helperService.showDanger("error: " + error.message, 4)
         this.loaderService.hideLoader()
       })
   }
@@ -67,7 +67,7 @@ export class HomeComponent implements OnInit {
     //Get min Date array
     let minDateMs = Math.min(...allDates)
     let minDate = new Date(minDateMs)
-    let minDateStr = (<any>minDate).customFormat( "#YYYY#-#MM#-#DD#" )
+    let minDateStr = this.helperService.customDateFormat(minDate,"#YYYY#-#MM#-#DD#")//(<any>minDate).customFormat( "#YYYY#-#MM#-#DD#" )
     // Gets the time array of the first departure Day Block
     let firstDateBlockDepHrs = data.filter(x => x.departureDate.trim() == minDateStr).map(x => parseInt(x.departureTime))
 
@@ -132,4 +132,6 @@ export class HomeComponent implements OnInit {
     if(this.zoom >0)
       this.zoom -= 1
   }
+
+
 }
