@@ -13,7 +13,7 @@
                   <ul class="dropdownlist">
                     <li *ngFor="let aircraft of aircrafts" class="selected">
                       <label class="">
-                        <input type="checkbox" value="aircraft" checked="checked" (click)="filterAircraft(aircraft)"/>
+                        <input type="checkbox" value="aircraft" checked="checked" (click)="filterAircraft($event, aircraft)"/>
                         <span class="dp_item">{{ aircraft }}</span>
                       </label>
                     </li>
@@ -40,7 +40,7 @@
             <!-- AIRCRAFT REG -->
             <div class="aircraft-reg-col">
               <div class="aircraft-reg-container">
-                <div *ngFor="let aircrafReg of aircrafts" class="aircraft-reg-item">
+                <div *ngFor="let aircrafReg of selectedAircrafts" class="aircraft-reg-item">
                   <span class="aircraft-reg-name">{{ aircrafReg }}</span>
                 </div>
               </div>
@@ -50,14 +50,26 @@
             <div class="aircraft-flights-col">
               <div *ngIf="flightsData" class="aircraft-flights-table">
                 <div class="flight-date-row">
-                  <div *ngFor="let flightDate of flightDates" class="flight-date-col {{flightDate | date: 'yyyy-MM-dd'}}"> {{ flightDate | date: "dd-MM-yyyy" }}
-                  </div>
+                  <div *ngFor="let flightDate of flightDates" class="flight-date-col {{flightDate | date: 'yyyy-MM-dd'}}"> {{ flightDate | date: "dd-MM-yyyy" }}</div>
                 </div>
-                <div *ngFor=" let i of [].constructor(aircrafts.length); let inx = index"class="flight-row">
+                 <!-- FLIGHT ROWS BASED ON AIRCRAFT COUNT -->
+                <div *ngFor=" let aircrafReg of selectedAircrafts" class="flight-row">
+                  <!-- FLIGHT COLUMNS BASED ON DATES -->
                   <div *ngFor="let c of [].constructor(flightDates.length)"class="flight-col"></div>
-                  <ng-container *ngIf="inx == 0">
-                    <div *ngFor="let flight of flightsData" class="flight-duration" [ngStyle]="setFlightDuration(flight)" placement="top" ngbTooltip="{{flight.departureTime | flightHourFriendly}} - {{ flight.arrivalTime | flightHourFriendly }}"></div>
+
+                   <!-- FLIGHT DURATION -->
+                  <ng-container *ngIf="aircrafReg == 'A-PLN1'">
+                    <ng-container *ngFor="let flight of flightsData; let idx = index" >
+
+                      <div #flightDurationEl class="flight-duration" [ngStyle]="setFlightDuration(flight)" placement="top" ngbTooltip="{{flight.departureTime | flightHourFriendly}} - {{ flight.arrivalTime | flightHourFriendly }}">
+                        <div *ngIf="idx == 0" class="flight-point" style="margin-left: -24px;">{{flight.departurePoint}}</div>
+                        <div class="flight-point" [ngStyle]="setFlightArrivalPoint(flightDurationEl)">{{flight.arrivalPoint}}</div>
+                      </div>
+
+                    </ng-container>
+
                   </ng-container>
+                  <!-- <div *ngIf="inx == 0" class="flight-maintenance"></div> -->
                 </div>
               </div>
             </div>

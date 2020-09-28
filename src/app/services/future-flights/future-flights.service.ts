@@ -7,13 +7,13 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class FutureFlightsService {
-  baseUrl: string = 'https://raw.githubusercontent.com/nasascience/angular-flights/master/src/assets'
+  baseUrl: string = '../../../assets'//'https://raw.githubusercontent.com/nasascience/angular-flights/master/src/assets'
   constructor(private http: HttpClient) {
 
    }
 
   // Gets All future flags by Aircraft Reg (parameter not implemented)
   getFutureFlags(aircraftReg: string): Observable<IFutureFlight[]>{
-      return this.http.get<IFutureFlight[]>(`${this.baseUrl}/futureflights.json`)
+      return this.http.get<IFutureFlight[]>(`${this.baseUrl}/futureflights_${aircraftReg}.json`)
   }
 }

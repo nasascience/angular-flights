@@ -9,13 +9,14 @@ declare var $: any
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.scss']
 })
 
 export class HomeComponent implements OnInit {
   flightsData: IFutureFlight[] = []
   flightDates: number[] = [] // dates in ms
   aircrafts: string[] = ['A-PLN1', 'A-PLN2', 'A-PLN3', 'A-PLN4']
+  selectedAircrafts: string[] = []
   date: Date = new Date()
   zoom: number = 50
 
@@ -25,11 +26,19 @@ export class HomeComponent implements OnInit {
     private alertsService: AlertsService) { }
 
   ngOnInit(): void {
+    this.selectedAircrafts = this.aircrafts
     this.getFutureFligts("A-PLN1")
   }
 
-  filterAircraft(ircraft: string) {
+  filterAircraft(event: any, aircraft: string) {
+    console.log(event.target.checked, aircraft)
+    if(event.target.checked){
+      this.selectedAircrafts.push(aircraft)
+    }else{
 
+      this.selectedAircrafts = this.selectedAircrafts.filter(x => x != aircraft)
+    }
+    this.selectedAircrafts.sort()
   }
 
   getFutureFligts(aircraftReg: string) {
@@ -43,7 +52,7 @@ export class HomeComponent implements OnInit {
         this.buildDateColumns(data)
         this.loaderService.hideLoader()
       }, error => {
-        this.alertsService.showDanger("error: " + error.message, 4)
+        alert(error.message)//this.alertsService.showDanger("error: " + error.message, 4)
         this.loaderService.hideLoader()
       })
   }
@@ -53,26 +62,44 @@ export class HomeComponent implements OnInit {
     let arrivalDates = data.map(x => Date.parse(x.arrivalDate.trim()))
 
     allDates.push(...arrivalDates)
-    var uniqueDates = [...new Set(allDates)].sort() // get unique and sort asc
+
+    //Logic for adding yesterday block to display first departure Point
+    //Get min Date array
+    let minDateMs = Math.min(...allDates)
+    let minDate = new Date(minDateMs)
+    let minDateStr = (<any>minDate).customFormat( "#YYYY#-#MM#-#DD#" )
+    // Gets the time array of the first departure Day Block
+    let firstDateBlockDepHrs = data.filter(x => x.departureDate.trim() == minDateStr).map(x => parseInt(x.departureTime))
+
+    // Add yesterday Block if the first departure date is before 3:00AM
+    if(Math.min(...firstDateBlockDepHrs) < 300){
+      let yesterday = minDateMs -8.64e+7
+      allDates.push(yesterday)
+    }
+
+    // get unique and sort asc
+    var uniqueDates = [...new Set(allDates)].sort()
     this.flightDates = uniqueDates
   }
 
   setFlightDuration(flightData: IFutureFlight) {
-    let pixelHr = 7
-    let offsetLeft = 167
-
     // Set start Position: Find Departure Row Date Match
-    var dateDepRowElem = $(`.${flightData.departureDate.trim()}`)[0]
-    let totalDepHoursPx = this.parseFlightTime(flightData.departureTime) * pixelHr
-    let startPoint = dateDepRowElem.offsetLeft - offsetLeft + totalDepHoursPx
+    let startPoint = this.getPointHrPix(flightData.departureDate, flightData.departureTime)
 
     // Set end Position: Find Arrival Row Date Match
-    var dateArrRowElem = $(`.${flightData.arrivalDate.trim()}`)[0]
-    let totalArrHoursPx = this.parseFlightTime(flightData.arrivalTime) * pixelHr
-    let endPoint = dateArrRowElem.offsetLeft - offsetLeft + totalArrHoursPx
+    let endPoint = this.getPointHrPix(flightData.arrivalDate, flightData.arrivalTime)
     let flightDuration = endPoint - startPoint
 
     return { 'margin-left': `${startPoint}px`, 'width': `${flightDuration}px` }
+  }
+
+  getPointHrPix(dateBlock: string , timeBlock: string){
+    let pixelHr = 168 / 24
+    let offsetLeft = 168
+    var dateDepRowElem = $(`.${dateBlock.trim()}`)[0]
+    let totalDepHoursPx = this.parseFlightTime(timeBlock) * pixelHr
+    let startPoint = dateDepRowElem.offsetLeft - offsetLeft + totalDepHoursPx
+    return startPoint
   }
 
   parseFlightTime(time: string) {
@@ -81,10 +108,13 @@ export class HomeComponent implements OnInit {
     return timeHr + (timeMin / 60)
   }
 
-  getZoom() {
-    // 60 => 109px left ; 22px top
+  setFlightArrivalPoint(flightDurationEl: HTMLElement){
+    let flightDuration = flightDurationEl.getBoundingClientRect().width
+    //console.log("flightDurationEl", flightDuration)
+     return { 'margin-left': `${flightDuration}px` }
+  }
 
-      //return { 'transform' :  `scale(${this.zoom / 50})` }
+  getZoom() {
     return { 'zoom': `${this.zoom * 2}%` }
   }
 
@@ -93,10 +123,12 @@ export class HomeComponent implements OnInit {
   }
 
   zoomIn(){
-    this.zoom += 1
+    if(this.zoom < 100)
+      this.zoom += 1
   }
 
   zoomOut(){
-    this.zoom -= 1
+    if(this.zoom >0)
+      this.zoom -= 1
   }
 }

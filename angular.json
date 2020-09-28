@@ -124,6 +124,12 @@
           }
         }
       }
-    }},
-  "defaultProject": "flights"
+    }
+  },
+  "defaultProject": "flights",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }
