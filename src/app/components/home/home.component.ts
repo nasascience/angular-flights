@@ -96,7 +96,8 @@ export class HomeComponent implements OnInit {
   getPointHrPix(dateBlock: string , timeBlock: string){
     let pixelHr = 168 / 24
     let offsetLeft = 168
-    var dateDepRowElem = $(`.${dateBlock.trim()}`)[0]
+    //let dateDepRowElem = document.querySelector(`.${dateBlock.trim()}`) as HTMLElement;
+    let dateDepRowElem = document.getElementsByClassName(`${dateBlock.trim()}`)[0] as HTMLElement
     let totalDepHoursPx = this.parseFlightTime(timeBlock) * pixelHr
     let startPoint = dateDepRowElem.offsetLeft - offsetLeft + totalDepHoursPx
     return startPoint
