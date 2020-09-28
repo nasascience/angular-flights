@@ -4,7 +4,7 @@ import { IFutureFlight } from '../../interfaces/future-flight'
 import { LoaderService } from '../../services/loader/loader.service'
 import { AlertsService } from '../../services/alerts/alerts.service'
 import { FlightHourFriendlyPipe } from '../../pipes/flight-hour-friendly.pipe'
-declare var $: any
+
 
 @Component({
   selector: 'app-home',
