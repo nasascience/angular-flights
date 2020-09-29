@@ -58,7 +58,7 @@
                   <div *ngFor="let c of [].constructor(flightDates.length)"class="flight-col" [ngStyle]="getFlightColStyle()"></div>
 
                    <!-- FLIGHT DURATION BLOCKS-->
-                  <ng-container *ngIf="aircrafReg == 'A-PLN1'">
+                   <ng-container *ngIf="aircrafReg == 'A-PLN1'">
                     <ng-container *ngFor="let flight of flightsData; let idx = index" >
 
                       <div #flightDurationEl class="flight-duration" [ngStyle]="setFlightDuration(flight)" placement="top"
@@ -70,6 +70,7 @@
                       </div>
                     </ng-container>
                   </ng-container>
+
                   <!-- <div *ngIf="inx == 0" class="flight-maintenance"></div> -->
                 </div>
               </div>

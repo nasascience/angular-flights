@@ -72,18 +72,18 @@ export class HomeComponent implements OnInit {
   * */
   buildDateColumns(data: IFutureFlight[]) {
     let allDates = data.map(x => Date.parse(x.departureDate.trim()))
-    let arrivalDates = data.map(x => Date.parse(x.arrivalDate.trim()))
+    const arrivalDates = data.map(x => Date.parse(x.arrivalDate.trim()))
 
     allDates.push(...arrivalDates)
 
     //Logic for adding yesterday block to display first departure Point
     //Get min Date array
-    let minDateMs = Math.min(...allDates)
-    let minDate = new Date(minDateMs)
-    let minDateStr = this.helperService.customDateFormat(minDate, "#YYYY#-#MM#-#DD#")
+    const minDateMs = Math.min(...allDates)
+    const minDate = new Date(minDateMs)
+    const minDateStr = this.helperService.customDateFormat(minDate, "#YYYY#-#MM#-#DD#")
 
     // Gets the time array of the first departure Day Block
-    let firstDateBlockDepHrs = data.filter(x => x.departureDate.trim() == minDateStr).map(x => parseInt(x.departureTime))
+    const firstDateBlockDepHrs = data.filter(x => x.departureDate.trim() === minDateStr).map(x => parseInt(x.departureTime))
 
     // Add yesterday Block if the first departure date is before 3:00AM
     if (Math.min(...firstDateBlockDepHrs) < 300) {
@@ -91,8 +91,8 @@ export class HomeComponent implements OnInit {
       allDates.push(yesterday)
     }
 
-    // get unique and sort asc
-    var uniqueDates = [...new Set(allDates)].sort()
+    // Get unique and sort asc
+    let uniqueDates = [...new Set(allDates)].sort()
     this.flightDates = uniqueDates
   }
 

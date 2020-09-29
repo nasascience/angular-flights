@@ -1,0 +1,302 @@
+[
+  {
+    "arrivalDate": "2020-09-01",
+    "arrivalPoint": "PRG",
+    "arrivalTime": "0200",
+    "departureDate": "2020-09-01 ",
+    "departurePoint": "RIX",
+    "departureTime": "0000",
+    "flightReference": "0.m6ggew6v3kq",
+    "lastUpdate": "2020-09-16T12:44:44"
+  },
+  {
+    "arrivalDate": "2020-09-01",
+    "arrivalPoint": "RIX",
+    "arrivalTime": "1000",
+    "departureDate": "2020-09-01 ",
+    "departurePoint": "PRG",
+    "departureTime": "0500",
+    "flightReference": "0.yx1tuj0aj6",
+    "lastUpdate": "2020-09-16T12:44:44"
+  },
+  {
+    "arrivalDate": "2020-09-01",
+    "arrivalPoint": "PRG",
+    "arrivalTime": "1750",
+    "departureDate": "2020-09-01 ",
+    "departurePoint": "RIX",
+    "departureTime": "1550",
+    "flightReference": "0.3c9vzqsx3rr",
+    "lastUpdate": "2020-09-16T12:44:44"
+  },
+  {
+    "arrivalDate": "2020-09-01",
+    "arrivalPoint": "RIX",
+    "arrivalTime": "2300",
+    "departureDate": "2020-09-01 ",
+    "departurePoint": "PRG",
+    "departureTime": "1900",
+    "flightReference": "0.l1ix5wi9ge",
+    "lastUpdate": "2020-09-16T12:44:44"
+  },
+  {
+    "arrivalDate": "2020-09-02",
+    "arrivalPoint": "PRG",
+    "arrivalTime": "0150",
+    "departureDate": "2020-09-01 ",
+    "departurePoint": "RIX",
+    "departureTime": "2350",
+    "flightReference": "0.katjz7k7ae",
+    "lastUpdate": "2020-09-16T12:44:44"
+  },
+  {
+    "arrivalDate": "2020-09-02",
+    "arrivalPoint": "RIX",
+    "arrivalTime": "0600",
+    "departureDate": "2020-09-02 ",
+    "departurePoint": "PRG",
+    "departureTime": "0400",
+    "flightReference": "0.l4qidva641g",
+    "lastUpdate": "2020-09-16T12:44:44"
+  },
+  {
+    "arrivalDate": "2020-09-02",
+    "arrivalPoint": "PRG",
+    "arrivalTime": "1100",
+    "departureDate": "2020-09-02 ",
+    "departurePoint": "RIX",
+    "departureTime": "0750",
+    "flightReference": "0.i7mif17sn48",
+    "lastUpdate": "2020-09-16T12:44:44"
+  },
+  {
+    "arrivalDate": "2020-09-02",
+    "arrivalPoint": "RIX",
+    "arrivalTime": "2250",
+    "departureDate": "2020-09-02 ",
+    "departurePoint": "PRG",
+    "departureTime": "1600",
+    "flightReference": "0.jouoovraevr",
+    "lastUpdate": "2020-09-16T12:44:44"
+  },
+  {
+    "arrivalDate": "2020-09-03",
+    "arrivalPoint": "PRG",
+    "arrivalTime": "0900",
+    "departureDate": "2020-09-03 ",
+    "departurePoint": "RIX",
+    "departureTime": "0300",
+    "flightReference": "0.kc2klj9m79",
+    "lastUpdate": "2020-09-16T12:44:44"
+  },
+  {
+    "arrivalDate": "2020-09-03",
+    "arrivalPoint": "RIX",
+    "arrivalTime": "1500",
+    "departureDate": "2020-09-03 ",
+    "departurePoint": "PRG",
+    "departureTime": "1100",
+    "flightReference": "0.wukpuc0vfhm",
+    "lastUpdate": "2020-09-16T12:44:44"
+  },
+  {
+    "arrivalDate": "2020-09-04",
+    "arrivalPoint": "PRG",
+    "arrivalTime": "0150",
+    "departureDate": "2020-09-03 ",
+    "departurePoint": "RIX",
+    "departureTime": "2050",
+    "flightReference": "0.3tx5inq4ehl",
+    "lastUpdate": "2020-09-16T12:44:44"
+  },
+  {
+    "arrivalDate": "2020-09-04",
+    "arrivalPoint": "RIX",
+    "arrivalTime": "0900",
+    "departureDate": "2020-09-04 ",
+    "departurePoint": "PRG",
+    "departureTime": "0300",
+    "flightReference": "0.p79vri5r6p",
+    "lastUpdate": "2020-09-16T12:44:44"
+  },
+  {
+    "arrivalDate": "2020-09-04",
+    "arrivalPoint": "PRG",
+    "arrivalTime": "1650",
+    "departureDate": "2020-09-04 ",
+    "departurePoint": "RIX",
+    "departureTime": "1250",
+    "flightReference": "0.5rexy1mgx3a",
+    "lastUpdate": "2020-09-16T12:44:44"
+  },
+  {
+    "arrivalDate": "2020-09-04",
+    "arrivalPoint": "RIX",
+    "arrivalTime": "2000",
+    "departureDate": "2020-09-04 ",
+    "departurePoint": "PRG",
+    "departureTime": "1750",
+    "flightReference": "0.02usezorpmze",
+    "lastUpdate": "2020-09-16T12:44:44"
+  },
+  {
+    "arrivalDate": "2020-09-04",
+    "arrivalPoint": "PRG",
+    "arrivalTime": "2350",
+    "departureDate": "2020-09-04 ",
+    "departurePoint": "RIX",
+    "departureTime": "2150",
+    "flightReference": "0.7fz684ybynr",
+    "lastUpdate": "2020-09-16T12:44:44"
+  },
+  {
+    "arrivalDate": "2020-09-05",
+    "arrivalPoint": "RIX",
+    "arrivalTime": "0750",
+    "departureDate": "2020-09-05 ",
+    "departurePoint": "PRG",
+    "departureTime": "0100",
+    "flightReference": "0.31e3n9akkjr",
+    "lastUpdate": "2020-09-16T12:44:44"
+  },
+  {
+    "arrivalDate": "2020-09-05",
+    "arrivalPoint": "PRG",
+    "arrivalTime": "1650",
+    "departureDate": "2020-09-05 ",
+    "departurePoint": "RIX",
+    "departureTime": "1250",
+    "flightReference": "0.9h6i2dirqu4",
+    "lastUpdate": "2020-09-16T12:44:44"
+  },
+  {
+    "arrivalDate": "2020-09-06",
+    "arrivalPoint": "RIX",
+    "arrivalTime": "0100",
+    "departureDate": "2020-09-05 ",
+    "departurePoint": "PRG",
+    "departureTime": "2050",
+    "flightReference": "0.o4woqncsv9n",
+    "lastUpdate": "2020-09-16T12:44:44"
+  },
+  {
+    "arrivalDate": "2020-09-06",
+    "arrivalPoint": "PRG",
+    "arrivalTime": "0850",
+    "departureDate": "2020-09-06 ",
+    "departurePoint": "RIX",
+    "departureTime": "0300",
+    "flightReference": "0.5gvsn2defql",
+    "lastUpdate": "2020-09-16T12:44:44"
+  },
+  {
+    "arrivalDate": "2020-09-06",
+    "arrivalPoint": "RIX",
+    "arrivalTime": "1400",
+    "departureDate": "2020-09-06 ",
+    "departurePoint": "PRG",
+    "departureTime": "1000",
+    "flightReference": "0.n0j7tt498c",
+    "lastUpdate": "2020-09-16T12:44:44"
+  },
+  {
+    "arrivalDate": "2020-09-06",
+    "arrivalPoint": "PRG",
+    "arrivalTime": "1900",
+    "departureDate": "2020-09-06 ",
+    "departurePoint": "RIX",
+    "departureTime": "1500",
+    "flightReference": "0.nqdntu9ufvd",
+    "lastUpdate": "2020-09-16T12:44:44"
+  },
+  {
+    "arrivalDate": "2020-09-06",
+    "arrivalPoint": "RIX",
+    "arrivalTime": "2250",
+    "departureDate": "2020-09-06 ",
+    "departurePoint": "PRG",
+    "departureTime": "2050",
+    "flightReference": "0.yrpggz9w6ta",
+    "lastUpdate": "2020-09-16T12:44:44"
+  },
+  {
+    "arrivalDate": "2020-09-07",
+    "arrivalPoint": "PRG",
+    "arrivalTime": "0500",
+    "departureDate": "2020-09-06 ",
+    "departurePoint": "RIX",
+    "departureTime": "2300",
+    "flightReference": "0.nw76cr68th",
+    "lastUpdate": "2020-09-16T12:44:44"
+  },
+  {
+    "arrivalDate": "2020-09-07",
+    "arrivalPoint": "RIX",
+    "arrivalTime": "1050",
+    "departureDate": "2020-09-07 ",
+    "departurePoint": "PRG",
+    "departureTime": "0600",
+    "flightReference": "0.2h05t31g4m",
+    "lastUpdate": "2020-09-16T12:44:44"
+  },
+  {
+    "arrivalDate": "2020-09-07",
+    "arrivalPoint": "PRG",
+    "arrivalTime": "1900",
+    "departureDate": "2020-09-07 ",
+    "departurePoint": "RIX",
+    "departureTime": "1500",
+    "flightReference": "0.h9revatkgj7",
+    "lastUpdate": "2020-09-16T12:44:44"
+  },
+  {
+    "arrivalDate": "2020-09-08",
+    "arrivalPoint": "RIX",
+    "arrivalTime": "0300",
+    "departureDate": "2020-09-07 ",
+    "departurePoint": "PRG",
+    "departureTime": "2150",
+    "flightReference": "0.veg63tt4vrb",
+    "lastUpdate": "2020-09-16T12:44:44"
+  },
+  {
+    "arrivalDate": "2020-09-08",
+    "arrivalPoint": "PRG",
+    "arrivalTime": "0850",
+    "departureDate": "2020-09-08 ",
+    "departurePoint": "RIX",
+    "departureTime": "0450",
+    "flightReference": "0.bnwg55y1byh",
+    "lastUpdate": "2020-09-16T12:44:44"
+  },
+  {
+    "arrivalDate": "2020-09-08",
+    "arrivalPoint": "RIX",
+    "arrivalTime": "1800",
+    "departureDate": "2020-09-08 ",
+    "departurePoint": "PRG",
+    "departureTime": "1200",
+    "flightReference": "0.wzz98jj8w4g",
+    "lastUpdate": "2020-09-16T12:44:44"
+  },
+  {
+    "arrivalDate": "2020-09-08",
+    "arrivalPoint": "PRG",
+    "arrivalTime": "2300",
+    "departureDate": "2020-09-08 ",
+    "departurePoint": "RIX",
+    "departureTime": "2000",
+    "flightReference": "0.k3jnnfsvh28",
+    "lastUpdat": "2020-09-16T12:44:44"
+  },
+  {
+    "arrivalDate": "2020-09-09",
+    "arrivalPoint": "RIX",
+    "arrivalTime": "0550",
+    "departureDate": "2020-09-09 ",
+    "departurePoint": "PRG",
+    "departureTime": "0150",
+    "flightReference": "0.i9e8fjmhzk",
+    "lastUpdate": "2020-09-16T12:44:44"
+  }
+]
