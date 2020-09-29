@@ -1,3 +1,8 @@
+export interface IFutureFlightData{
+  aircraftReg: string
+  data: IFutureFlight[]
+}
+
 export interface IFutureFlight{
   arrivalDate: string
 	arrivalPoint: string

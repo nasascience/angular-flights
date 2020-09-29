@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FutureFlightsService } from '../../services/future-flights/future-flights.service';
-import { IFutureFlight } from '../../interfaces/future-flight'
+import { IFutureFlightData, IFutureFlight } from '../../interfaces/future-flight'
 import { LoaderService } from '../../services/loader/loader.service'
 import { HelperService } from '../../services/helper/helper.service'
 import { NgStyle } from '@angular/common';
+import { forkJoin, Observable } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -12,9 +14,9 @@ import { NgStyle } from '@angular/common';
 })
 
 export class HomeComponent implements OnInit {
-  flightsData: IFutureFlight[] = []
+  selectedFlightsData: IFutureFlightData[] = []
   flightDates: number[] = [] // dates in ms
-  aircrafts: string[] = ['A-PLN1', 'A-PLN2', 'A-PLN3', 'A-PLN4']
+  aircrafts: string[] = []
   selectedAircrafts: string[] = []
   date: Date = new Date()
   //zoom: number = 50
@@ -26,43 +28,63 @@ export class HomeComponent implements OnInit {
     private helperService: HelperService) { }
 
   ngOnInit(): void {
-    this.selectedAircrafts = this.aircrafts
-    this.getFutureFligts("A-PLN1")
-    const aircraftColum = document.querySelector('.aircraft-reg-container') as HTMLElement
 
-    this.aircraftColWidth = aircraftColum.offsetWidth
-  }
-
-  /**
-   * Filters the Aircraft column list from the multi select dropdown
-   * */
-  filterAircraft(event: any, aircraft: string) {
-    if (event.target.checked) {
-      this.selectedAircrafts.push(aircraft)
-    } else {
-
-      this.selectedAircrafts = this.selectedAircrafts.filter(x => x != aircraft)
-    }
-    this.selectedAircrafts.sort()
-  }
-
-  /**
-   * Gets the future fligts data from the server and sets up the fligts data grid
-   * @param string aircraftReg
-   * */
-  getFutureFligts(aircraftReg: string) {
     this.loaderService.showLoader()
-
-    this.futureFlightsService.getFutureFlags(aircraftReg)
-      .subscribe(data => {
-        this.flightsData = data
-
-        this.buildDateColumns(data)
+    this.futureFlightsService.getAircrafts()
+      .subscribe(x => {
+        this.aircrafts = this.selectedAircrafts = x
+        // I suggest the aircraft data retrieved from the service also returns the flight data
+        this.getFutureFligtsForSelectedAircrafts()
         this.loaderService.hideLoader()
       }, error => {
         alert(error.message)
         this.loaderService.hideLoader()
       })
+
+    const aircraftColum = document.querySelector('.aircraft-reg-container') as HTMLElement
+    this.aircraftColWidth = aircraftColum.offsetWidth
+  }
+
+  /**
+   * Gets the future fligts data from the server and sets up the fligts data grid
+   * */
+  getFutureFligtsForSelectedAircrafts() {
+    this.loaderService.showLoader()
+
+    if(this.selectedAircrafts.length == 0){
+      this.selectedFlightsData = []
+      this.loaderService.hideLoader()
+      return
+    }
+
+    // Getting fligst data for selected aircrafts
+    let observables = this.selectedAircrafts.map(aircraftReg => this.futureFlightsService.getFutureFlights(aircraftReg))
+    let source = forkJoin(observables)
+    source.subscribe(allAircraftData => {
+
+      this.selectedFlightsData = allAircraftData
+      console.log("flightsData", this.selectedFlightsData)
+
+      this.buildDateColumns(allAircraftData)
+      this.loaderService.hideLoader()
+    }, error => {
+      alert(error.message)
+      this.loaderService.hideLoader()
+    })
+
+  }
+
+  /**
+  * Filters the Aircraft column list from the multi select dropdown
+  * */
+  filterAircraft(event: any, aircraft: string) {
+    if (event.target.checked)
+      this.selectedAircrafts.push(aircraft)
+    else
+      this.selectedAircrafts = this.selectedAircrafts.filter(x => x != aircraft)
+
+    this.selectedAircrafts.sort()
+    this.getFutureFligtsForSelectedAircrafts()
   }
 
   /**
@@ -70,23 +92,21 @@ export class HomeComponent implements OnInit {
   * Also formats the data in a more friendly way
   * @param IFutureFlight[] data
   * */
-  buildDateColumns(data: IFutureFlight[]) {
-    let allDates = data.map(x => Date.parse(x.departureDate.trim()))
-    const arrivalDates = data.map(x => Date.parse(x.arrivalDate.trim()))
+  buildDateColumns(data: IFutureFlightData[]) {
+    let minDeparturDate = Math.min(...data.filter(x => x.data.length != 0).map(x => Math.min(...x.data.map(y => Date.parse(y.departureDate.trim())))))
+    let maxArrivalDate =  Math.max(...data.filter(x => x.data.length != 0).map(x => Math.max(...x.data.map(y => Date.parse(y.arrivalDate.trim())))))
 
-    allDates.push(...arrivalDates)
+    const allDates = this.addDatesArray(minDeparturDate, maxArrivalDate)
 
     //Logic for adding yesterday block to display first departure Point
     //Get min Date array
     const minDateMs = Math.min(...allDates)
-    const minDate = new Date(minDateMs)
-    const minDateStr = this.helperService.customDateFormat(minDate, "#YYYY#-#MM#-#DD#")
 
     // Gets the time array of the first departure Day Block
-    const firstDateBlockDepHrs = data.filter(x => x.departureDate.trim() === minDateStr).map(x => parseInt(x.departureTime))
+    const firstDateBlockDepHrs = Math.min(...(data.filter(x => x.data.length != 0).map(a => Math.min(...(a.data.map(c => parseInt(c.departureTime)))))))
 
     // Add yesterday Block if the first departure date is before 3:00AM
-    if (Math.min(...firstDateBlockDepHrs) < 300) {
+    if (firstDateBlockDepHrs < 300) {
       let yesterday = minDateMs - 8.64e+7
       allDates.push(yesterday)
     }
@@ -94,6 +114,23 @@ export class HomeComponent implements OnInit {
     // Get unique and sort asc
     let uniqueDates = [...new Set(allDates)].sort()
     this.flightDates = uniqueDates
+  }
+
+   /**
+  * Builds the range of dates based on all the flight data provided
+  * @param number minDate
+  * @param number maxDate
+  * @returns number[] array of dates
+  * */
+  addDatesArray(minDate: number, maxDate: number): number[]{
+    let datesRange: number[] = []
+    datesRange.push(minDate)
+    //var Difference_In_Time = minDate.getTime() - maxDate.getTime();
+    var dayDiff = (maxDate - minDate) / (1000 * 3600 * 24);
+    for(let i =0; i < dayDiff; i++){
+      datesRange.push(minDate + (8.64e+7 * (i+1) ))
+    }
+    return datesRange
   }
 
   /**
@@ -119,11 +156,11 @@ export class HomeComponent implements OnInit {
    * @returns number
    * */
   getPointHrPix(dateBlock: string, timeBlock: string): number {
-    let pixelHr = this.initColWidth / 24
-    let offsetLeft = this.aircraftColWidth//this.initColWidth
-    let dateDepRowElem = document.getElementsByClassName(`${dateBlock.trim()}`)[0] as HTMLElement
-    let totalDepHoursPx = this.parseFlightTime(timeBlock) * pixelHr
-    let point = dateDepRowElem.offsetLeft - offsetLeft + totalDepHoursPx
+    const pixelHr = this.initColWidth / 24
+    const offsetLeft = this.aircraftColWidth//this.initColWidth
+    const dateDepRowElem = document.getElementsByClassName(`${dateBlock.trim()}`)[0] as HTMLElement
+    const totalDepHoursPx = this.parseFlightTime(timeBlock) * pixelHr
+    const point = dateDepRowElem.offsetLeft - offsetLeft + totalDepHoursPx
     return point
   }
 
@@ -140,12 +177,37 @@ export class HomeComponent implements OnInit {
 
   /**
    * Stablishes the position of the arrival text point. e.g RIX, PRG, etc.
-   * @param HTMLElement flightDurationEl
+   * @param string aircraftReg
+   * @param number flightIndex - Flight Duration Index in array
+   * @param boolean isLast - to check whether is the last item in the array
+   * @param string arrival Time point - to determine the position in the current time block. (This is used to calculate last arrival point area)
    * @returns style Type
    * */
-  setFlightArrivalPoint(flightDurationEl: HTMLElement): NgStyle["ngStyle"] {
-    let flightDuration = flightDurationEl.getBoundingClientRect().width
-    return { 'margin-left': `${flightDuration}px` }
+  setFlightPoints(aircraftReg : string, flightIndex: number, isLast: boolean, arrivalPoint?: string): NgStyle["ngStyle"] {
+    // Current flight Data
+    const flightDurationEl = document.querySelector(`#flightdur_${aircraftReg}_${flightIndex}`) as HTMLElement
+
+    if(flightIndex == 0){
+      // Calculates position and width of the FIRST flight points RIX/PRG
+      const pointWidth = flightDurationEl.offsetLeft
+      return { 'margin-left': `${0}px`, 'width': `${pointWidth}px`}
+    }else if (isLast){
+      // Calculates position and width of the LAST flight points RIX/PRG
+      const pixelHr = this.initColWidth / 24
+      const pointleft = flightDurationEl.offsetLeft + flightDurationEl.offsetWidth
+      const partialArea = this.parseFlightTime(arrivalPoint) * pixelHr
+      const pointWidth = this.initColWidth - partialArea
+      return { 'margin-left': `${pointleft}px`, 'width': `${pointWidth}px`}
+    }
+
+    // Calculates position and width of the flight points RIX/PRG
+    const flightDurationElPrev = document.querySelector(`#flightdur_${aircraftReg}_${flightIndex-1}`) as HTMLElement
+    const pointLeft = flightDurationElPrev.offsetLeft + flightDurationElPrev.offsetWidth
+    const pointWidth = flightDurationEl.offsetLeft - pointLeft
+
+
+
+    return { 'margin-left': `${pointLeft}px`, 'width': `${pointWidth}px`}
   }
 
   /**

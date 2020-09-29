@@ -148,7 +148,7 @@ $grid-width: 169px;
 
 .flight-duration {
   position: absolute;
-  height: 43px;
+  height: 44px;
   width: 7px;
   top: 0;
   left: 0;
@@ -171,8 +171,11 @@ $grid-width: 169px;
 
 .flight-point{
   position: absolute;
-  width: 24px;
+  height: 44px;
   line-height: 44px;
-  font-size: 0.8em;
+  font-size: 0.82em;
   text-align: center;
+  background: #f5681652;
+  top: 0;
+  left: 0;
 }
