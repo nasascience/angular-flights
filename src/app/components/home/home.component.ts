@@ -81,6 +81,7 @@ export class HomeComponent implements OnInit {
     let minDateMs = Math.min(...allDates)
     let minDate = new Date(minDateMs)
     let minDateStr = this.helperService.customDateFormat(minDate, "#YYYY#-#MM#-#DD#")
+
     // Gets the time array of the first departure Day Block
     let firstDateBlockDepHrs = data.filter(x => x.departureDate.trim() == minDateStr).map(x => parseInt(x.departureTime))
 
@@ -149,17 +150,12 @@ export class HomeComponent implements OnInit {
 
   /**
    * Sets the flight column width and background depending on the current zoom
-   *
    * @returns style Type
    * */
   getFlightColStyle(): NgStyle["ngStyle"] {
     let blockSize = this.initColWidth / 24
     return { 'width': `${this.initColWidth}px`, 'background-size': `${blockSize}px ${blockSize}px` }
   }
-
-  // getZoom() {
-  //   return { 'zoom': `${this.zoom * 2}%` }
-  // }
 
   /**
    * Sets the zoom to default value
@@ -173,8 +169,6 @@ export class HomeComponent implements OnInit {
    * */
   zoomIn() {
     this.initColWidth += 1
-    // if(this.zoom < 100)
-    //   this.zoom += 1
   }
 
   /**
@@ -182,10 +176,5 @@ export class HomeComponent implements OnInit {
    * */
   zoomOut() {
     this.initColWidth -= 1
-    console.log(this.initColWidth)
-    // if(this.zoom >0)
-    //   this.zoom -= 1
   }
-
-
 }
