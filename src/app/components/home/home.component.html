@@ -73,7 +73,7 @@
                        <div #arrivalpoint  *ngIf="idx == flightData.data.length - 1"  class="flight-point arrival" [ngStyle]="setFlightPoints(flightData.aircraftReg, idx, true, flight.arrivalTime)"
                        placement="top" ngbTooltip="{{flight.arrivalPoint}}">
 
-                        <span [ngStyle]="{'font-size':departurepoint.offsetWidth > 20? '0.82em': '0'}">{{flight.arrivalPoint}}</span>
+                        <span [ngStyle]="{'font-size':arrivalpoint.offsetWidth > 20? '0.82em': '0'}">{{flight.arrivalPoint}}</span>
 
                       </div>
                     </ng-container>
