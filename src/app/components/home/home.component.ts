@@ -183,9 +183,9 @@ export class HomeComponent implements OnInit {
    * @param string arrival Time point - to determine the position in the current time block. (This is used to calculate last arrival point area)
    * @returns style Type
    * */
-  setFlightPoints(aircraftReg : string, flightIndex: number, isLast: boolean, arrivalPoint?: string): NgStyle["ngStyle"] {
+  setFlightPoints(flightDurationEl : HTMLElement, flightIndex: number, isLast: boolean, arrivalPoint?: string): NgStyle["ngStyle"] {
     // Current flight Data
-    const flightDurationEl = document.querySelector(`#flightdur_${aircraftReg}_${flightIndex}`) as HTMLElement
+    //const flightDurationEl = document.querySelector(`#flightdur_${aircraftReg}_${flightIndex}`) as HTMLElement
 
     if(flightIndex == 0){
       // Calculates position and width of the FIRST flight points RIX/PRG

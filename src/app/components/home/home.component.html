@@ -59,11 +59,12 @@
 
                     <ng-container *ngFor="let flight of flightData.data; let idx = index" >
                       <!--FLIGHT DURATION-->
-                      <div [attr.id]="'flightdur_' + flightData.aircraftReg + '_'+ idx" class="flight-duration"
+                      <!-- <div [attr.id]="'flightdur_' + flightData.aircraftReg + '_'+ idx" class="flight-duration" -->
+                      <div #flightDurationEl class="flight-duration fd_{{flightData.aircraftReg}}_{{idx}}"
                       [ngStyle]="setFlightDuration(flight)" placement="top"
                       ngbTooltip="{{flight.departureTime | flightHourFriendly}} - {{ flight.arrivalTime | flightHourFriendly }}"></div>
                        <!-- DEPARTURE POINT -->
-                       <div #departurepoint class="flight-point departure" [ngStyle]="setFlightPoints(flightData.aircraftReg, idx, false)"placement="top" ngbTooltip="{{flight.departurePoint}}">
+                       <div #departurepoint class="flight-point departure" [ngStyle]="setFlightPoints(flightDurationEl, idx, false)"placement="top" ngbTooltip="{{flight.departurePoint}}">
 
                         <span [ngStyle]="{'font-size':departurepoint.offsetWidth > 20? '0.82em': '0'}">{{flight.departurePoint}}</span>
 
