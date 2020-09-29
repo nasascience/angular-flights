@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subscriber } from 'rxjs';
+import { Observable } from 'rxjs';
 import { IFutureFlight } from '../../interfaces/future-flight'
 import { HttpClient } from '@angular/common/http';
 
@@ -10,10 +10,16 @@ export class FutureFlightsService {
   baseUrl: string = '../../../assets'//'https://raw.githubusercontent.com/nasascience/angular-flights/master/src/assets'
   constructor(private http: HttpClient) {
 
-   }
-
-  // Gets All future flags by Aircraft Reg (parameter not implemented)
-  getFutureFlags(aircraftReg: string): Observable<IFutureFlight[]>{
-      return this.http.get<IFutureFlight[]>(`${this.baseUrl}/futureflights_${aircraftReg}.json`)
   }
+
+
+  /**
+  * Get all future flags by Aircraft Reg (this is a simple simulation of server call)
+  *
+  * @returns Observable<IFutureFlight[]>
+  * */
+  getFutureFlags(aircraftReg: string): Observable<IFutureFlight[]> {
+    return this.http.get<IFutureFlight[]>(`${this.baseUrl}/futureflights_${aircraftReg}.json`)
+  }
+
 }

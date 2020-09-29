@@ -36,7 +36,7 @@
         </div>
         <!-- BODY -->
         <div class="card-body">
-          <div class="flights-body" [ngStyle]="getZoom()">
+          <div class="flights-body"><!-- <div class="flights-body" [ngStyle]="getZoom()"> -->
             <!-- AIRCRAFT REG -->
             <div class="aircraft-reg-col">
               <div class="aircraft-reg-container">
@@ -50,24 +50,25 @@
             <div class="aircraft-flights-col">
               <div *ngIf="flightsData" class="aircraft-flights-table">
                 <div class="flight-date-row">
-                  <div *ngFor="let flightDate of flightDates" class="flight-date-col {{flightDate | date: 'yyyy-MM-dd'}}"> {{ flightDate | date: "dd-MM-yyyy" }}</div>
+                  <div *ngFor="let flightDate of flightDates" class="flight-date-col {{flightDate | date: 'yyyy-MM-dd'}}" [ngStyle]="{'width.px':initColWidth}"> {{ flightDate | date: "dd-MM-yyyy" }}</div>
                 </div>
                  <!-- FLIGHT ROWS BASED ON AIRCRAFT COUNT -->
                 <div *ngFor=" let aircrafReg of selectedAircrafts" class="flight-row">
                   <!-- FLIGHT COLUMNS BASED ON DATES -->
-                  <div *ngFor="let c of [].constructor(flightDates.length)"class="flight-col"></div>
+                  <div *ngFor="let c of [].constructor(flightDates.length)"class="flight-col" [ngStyle]="getFlightColStyle()"></div>
 
-                   <!-- FLIGHT DURATION -->
+                   <!-- FLIGHT DURATION BLOCKS-->
                   <ng-container *ngIf="aircrafReg == 'A-PLN1'">
                     <ng-container *ngFor="let flight of flightsData; let idx = index" >
 
-                      <div #flightDurationEl class="flight-duration" [ngStyle]="setFlightDuration(flight)" placement="top" ngbTooltip="{{flight.departureTime | flightHourFriendly}} - {{ flight.arrivalTime | flightHourFriendly }}">
-                        <div *ngIf="idx == 0" class="flight-point" style="margin-left: -24px;">{{flight.departurePoint}}</div>
+                      <div #flightDurationEl class="flight-duration" [ngStyle]="setFlightDuration(flight)" placement="top"
+                      ngbTooltip="{{flight.departureTime | flightHourFriendly}} - {{ flight.arrivalTime | flightHourFriendly }}">
+                        <!-- ARRIVAL POINT -->
                         <div class="flight-point" [ngStyle]="setFlightArrivalPoint(flightDurationEl)">{{flight.arrivalPoint}}</div>
+                        <!-- DEPARTURE POINT -->
+                        <div *ngIf="idx == 0" class="flight-point" style="margin-left: -24px;">{{flight.departurePoint}}</div>
                       </div>
-
                     </ng-container>
-
                   </ng-container>
                   <!-- <div *ngIf="inx == 0" class="flight-maintenance"></div> -->
                 </div>
@@ -81,7 +82,7 @@
           <div class="zoom-range">
             <span class="fas fa-undo zoom-reset-btn" (click)="resetZoom()"></span>
             <span class="fas fa-search-minus zoom-minus-btn" (click)="zoomOut()"></span>
-            <input style="width: 150px" type="range" class="custom-range" min="0" max="100" [(ngModel)]="zoom"/>
+            <input style="width: 150px" type="range" class="custom-range" min="84" max="500" [(ngModel)]="initColWidth"/>
             <span class="fas fa-search-plus zoom-plus-btn" (click)="zoomIn()"></span>
           </div>
         </div>

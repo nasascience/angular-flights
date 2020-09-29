@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-//declare var $: any
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +6,12 @@ import { Injectable } from '@angular/core';
 export class HelperService {
 
   constructor() { }
-
+ /**
+  * Format and parse the passed Date Type value into the desirable format
+  * @param Date data
+  * @param string formatString
+  * @returns string
+  * */
   customDateFormat(data: Date, formatString: string){
     var YYYY,YY,MMMM,MMM,MM,M,DDDD,DDD,DD,D,hhhh,hhh,hh,h,mm,m,ss,s,ampm,AMPM,dMod,th;
     YY = ((YYYY=data.getFullYear())+"").slice(-2);
@@ -27,22 +31,4 @@ export class HelperService {
     ss=(s=data.getSeconds())<10?('0'+s):s;
     return formatString.replace("#hhhh#",hhhh).replace("#hhh#",hhh).replace("#hh#",hh).replace("#h#",h).replace("#mm#",mm).replace("#m#",m).replace("#ss#",ss).replace("#s#",s).replace("#ampm#",ampm).replace("#AMPM#",AMPM);
   }
-
-  // showSuccess(message: string, secTime:number){
-  //   let sec = secTime*1000
-  //   $("#success-alert").text(message)
-  //   $("#success-alert").fadeIn(400)
-  //   setTimeout(()=>{
-  //     $("#success-alert").fadeOut(400)
-  //   },sec)
-  // }
-
-  // showDanger(message: string, secTime:number){
-  //   let sec = secTime*1000
-  //   $("#danger-alert").text(message)
-  //   $("#danger-alert").fadeIn(400)
-  //   setTimeout(()=>{
-  //     $("#danger-alert").fadeOut(400)
-  //   },sec)
-  // }
 }

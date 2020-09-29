@@ -3,8 +3,7 @@ import { FutureFlightsService } from '../../services/future-flights/future-fligh
 import { IFutureFlight } from '../../interfaces/future-flight'
 import { LoaderService } from '../../services/loader/loader.service'
 import { HelperService } from '../../services/helper/helper.service'
-import { FlightHourFriendlyPipe } from '../../pipes/flight-hour-friendly.pipe'
-
+import { NgStyle } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -18,8 +17,9 @@ export class HomeComponent implements OnInit {
   aircrafts: string[] = ['A-PLN1', 'A-PLN2', 'A-PLN3', 'A-PLN4']
   selectedAircrafts: string[] = []
   date: Date = new Date()
-  zoom: number = 50
-
+  //zoom: number = 50
+  initColWidth: number = 169
+  aircraftColWidth: number = 168
   constructor(
     private futureFlightsService: FutureFlightsService,
     private loaderService: LoaderService,
@@ -28,35 +28,48 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.selectedAircrafts = this.aircrafts
     this.getFutureFligts("A-PLN1")
+    const aircraftColum = document.querySelector('.aircraft-reg-container') as HTMLElement
+
+    this.aircraftColWidth = aircraftColum.offsetWidth
   }
 
+  /**
+   * Filters the Aircraft column list from the multi select dropdown
+   * */
   filterAircraft(event: any, aircraft: string) {
-    console.log(event.target.checked, aircraft)
-    if(event.target.checked){
+    if (event.target.checked) {
       this.selectedAircrafts.push(aircraft)
-    }else{
+    } else {
 
       this.selectedAircrafts = this.selectedAircrafts.filter(x => x != aircraft)
     }
     this.selectedAircrafts.sort()
   }
 
+  /**
+   * Gets the future fligts data from the server and sets up the fligts data grid
+   * @param string aircraftReg
+   * */
   getFutureFligts(aircraftReg: string) {
     this.loaderService.showLoader()
 
     this.futureFlightsService.getFutureFlags(aircraftReg)
       .subscribe(data => {
         this.flightsData = data
-        console.log("getFutureFlags", this.flightsData)
 
         this.buildDateColumns(data)
         this.loaderService.hideLoader()
       }, error => {
-        alert(error.message)//this.helperService.showDanger("error: " + error.message, 4)
+        alert(error.message)
         this.loaderService.hideLoader()
       })
   }
 
+  /**
+  * Sets up the Date columns in the data grid according to the flights data retrieved.
+  * Also formats the data in a more friendly way
+  * @param IFutureFlight[] data
+  * */
   buildDateColumns(data: IFutureFlight[]) {
     let allDates = data.map(x => Date.parse(x.departureDate.trim()))
     let arrivalDates = data.map(x => Date.parse(x.arrivalDate.trim()))
@@ -67,13 +80,13 @@ export class HomeComponent implements OnInit {
     //Get min Date array
     let minDateMs = Math.min(...allDates)
     let minDate = new Date(minDateMs)
-    let minDateStr = this.helperService.customDateFormat(minDate,"#YYYY#-#MM#-#DD#")//(<any>minDate).customFormat( "#YYYY#-#MM#-#DD#" )
+    let minDateStr = this.helperService.customDateFormat(minDate, "#YYYY#-#MM#-#DD#")
     // Gets the time array of the first departure Day Block
     let firstDateBlockDepHrs = data.filter(x => x.departureDate.trim() == minDateStr).map(x => parseInt(x.departureTime))
 
     // Add yesterday Block if the first departure date is before 3:00AM
-    if(Math.min(...firstDateBlockDepHrs) < 300){
-      let yesterday = minDateMs -8.64e+7
+    if (Math.min(...firstDateBlockDepHrs) < 300) {
+      let yesterday = minDateMs - 8.64e+7
       allDates.push(yesterday)
     }
 
@@ -82,7 +95,12 @@ export class HomeComponent implements OnInit {
     this.flightDates = uniqueDates
   }
 
-  setFlightDuration(flightData: IFutureFlight) {
+  /**
+  * Builds the flight duration setting up the start point and duration of the flight
+  * @param IFutureFlight flightData
+  * @returns NgStyle
+  * */
+  setFlightDuration(flightData: IFutureFlight): NgStyle["ngStyle"] {
     // Set start Position: Find Departure Row Date Match
     let startPoint = this.getPointHrPix(flightData.departureDate, flightData.departureTime)
 
@@ -93,44 +111,80 @@ export class HomeComponent implements OnInit {
     return { 'margin-left': `${startPoint}px`, 'width': `${flightDuration}px` }
   }
 
-  getPointHrPix(dateBlock: string , timeBlock: string){
-    let pixelHr = 168 / 24
-    let offsetLeft = 168
-    //let dateDepRowElem = document.querySelector(`.${dateBlock.trim()}`) as HTMLElement;
+  /**
+   * Calculates the departure or arrival points in pixel
+   * @param string dateBlock
+   * @param string timeBlock
+   * @returns number
+   * */
+  getPointHrPix(dateBlock: string, timeBlock: string): number {
+    let pixelHr = this.initColWidth / 24
+    let offsetLeft = this.aircraftColWidth//this.initColWidth
     let dateDepRowElem = document.getElementsByClassName(`${dateBlock.trim()}`)[0] as HTMLElement
     let totalDepHoursPx = this.parseFlightTime(timeBlock) * pixelHr
-    let startPoint = dateDepRowElem.offsetLeft - offsetLeft + totalDepHoursPx
-    return startPoint
+    let point = dateDepRowElem.offsetLeft - offsetLeft + totalDepHoursPx
+    return point
   }
 
-  parseFlightTime(time: string) {
+  /**
+  * Parse and converts to hours the string passed
+  * @param string time
+  * @returns number: time in hours
+  * */
+  parseFlightTime(time: string): number {
     let timeHr = parseInt(time.substring(0, 2))
     let timeMin = parseInt(time.slice(-2))
     return timeHr + (timeMin / 60)
   }
 
-  setFlightArrivalPoint(flightDurationEl: HTMLElement){
+  /**
+   * Stablishes the position of the arrival text point. e.g RIX, PRG, etc.
+   * @param HTMLElement flightDurationEl
+   * @returns style Type
+   * */
+  setFlightArrivalPoint(flightDurationEl: HTMLElement): NgStyle["ngStyle"] {
     let flightDuration = flightDurationEl.getBoundingClientRect().width
-    //console.log("flightDurationEl", flightDuration)
-     return { 'margin-left': `${flightDuration}px` }
+    return { 'margin-left': `${flightDuration}px` }
   }
 
-  getZoom() {
-    return { 'zoom': `${this.zoom * 2}%` }
+  /**
+   * Sets the flight column width and background depending on the current zoom
+   *
+   * @returns style Type
+   * */
+  getFlightColStyle(): NgStyle["ngStyle"] {
+    let blockSize = this.initColWidth / 24
+    return { 'width': `${this.initColWidth}px`, 'background-size': `${blockSize}px ${blockSize}px` }
   }
 
-  resetZoom(){
-    this.zoom = 50
+  // getZoom() {
+  //   return { 'zoom': `${this.zoom * 2}%` }
+  // }
+
+  /**
+   * Sets the zoom to default value
+   * */
+  resetZoom() {
+    this.initColWidth = 169
   }
 
-  zoomIn(){
-    if(this.zoom < 100)
-      this.zoom += 1
+  /**
+   * Simulates the zoom In
+   * */
+  zoomIn() {
+    this.initColWidth += 1
+    // if(this.zoom < 100)
+    //   this.zoom += 1
   }
 
-  zoomOut(){
-    if(this.zoom >0)
-      this.zoom -= 1
+  /**
+   * Simulates the zoom Out
+   * */
+  zoomOut() {
+    this.initColWidth -= 1
+    console.log(this.initColWidth)
+    // if(this.zoom >0)
+    //   this.zoom -= 1
   }
 
 
