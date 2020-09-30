@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FutureFlightsService } from '../../services/future-flights/future-flights.service';
-import { IFutureFlightData, IFutureFlight } from '../../interfaces/future-flight'
+import { IFutureFlightData } from '../../interfaces/future-flight'
 import { LoaderService } from '../../services/loader/loader.service'
 import { NgStyle } from '@angular/common';
 import { forkJoin } from 'rxjs';
@@ -17,9 +17,9 @@ export class HomeComponent implements OnInit {
   aircrafts: string[] = []
   selectedAircrafts: string[] = []
   date: Date = new Date()
-  //zoom: number = 50
   initColWidth: number = 169
   aircraftColWidth: number = 168
+
   constructor(
     private futureFlightsService: FutureFlightsService,
     private loaderService: LoaderService) { }
@@ -151,82 +151,6 @@ export class HomeComponent implements OnInit {
     return datesRange
   }
 
-  /**
-  * Builds the flight duration setting up the start point and duration of the flight
-  * @param IFutureFlight flightData
-  * @returns NgStyle
-  * */
-  setFlightDuration(flightData: IFutureFlight): NgStyle["ngStyle"] {
-    // Set start Position: Find Departure Row Date Match
-    let startPoint = this.getPointHrPix(flightData.departureDate, flightData.departureTime)
-
-    // Set end Position: Find Arrival Row Date Match
-    let endPoint = this.getPointHrPix(flightData.arrivalDate, flightData.arrivalTime)
-    let flightDuration = endPoint - startPoint
-
-    return { 'margin-left': `${startPoint}px`, 'width': `${flightDuration}px` }
-  }
-
-  /**
-   * Calculates the departure or arrival points in pixel
-   * @param string dateBlock
-   * @param string timeBlock
-   * @returns number
-   * */
-  getPointHrPix(dateBlock: string, timeBlock: string): number {
-    const pixelHr = this.initColWidth / 24
-    const offsetLeft = this.aircraftColWidth//this.initColWidth
-    const dateDepRowElem = document.getElementsByClassName(`${dateBlock.trim()}`)[0] as HTMLElement
-    const totalDepHoursPx = this.parseFlightTime(timeBlock) * pixelHr
-    const point = dateDepRowElem.offsetLeft - offsetLeft + totalDepHoursPx
-    return point
-  }
-
-  /**
-  * Parse and converts to hours the string passed
-  * @param string time
-  * @returns number: time in hours
-  * */
-  parseFlightTime(time: string): number {
-    let timeHr = parseInt(time.substring(0, 2))
-    let timeMin = parseInt(time.slice(-2))
-    return timeHr + (timeMin / 60)
-  }
-
-  /**
-   * Stablishes the position of the arrival text point. e.g RIX, PRG, etc.
-   * @param string aircraftReg
-   * @param number flightIndex - Flight Duration Index in array
-   * @param boolean isLast - to check whether is the last item in the array
-   * @param string arrival Time point - to determine the position in the current time block. (This is used to calculate last arrival point area)
-   * @returns style Type
-   * */
-  setFlightPoints(aircraftReg : string, flightIndex: number, isLast: boolean, arrivalPoint?: string): NgStyle["ngStyle"] {
-    // Current flight Data
-    const flightDurationEl = document.querySelector(`.flightdur_${aircraftReg}_${flightIndex}`) as HTMLElement
-
-    if(flightIndex == 0){
-      // Calculates position and width of the FIRST flight points RIX/PRG
-      const pointWidth = flightDurationEl.offsetLeft
-      return { 'margin-left': `${0}px`, 'width': `${pointWidth}px`}
-    }else if (isLast){
-      // Calculates position and width of the LAST flight points RIX/PRG
-      const pixelHr = this.initColWidth / 24
-      const pointleft = flightDurationEl.offsetLeft + flightDurationEl.offsetWidth
-      const partialArea = this.parseFlightTime(arrivalPoint) * pixelHr
-      const pointWidth = this.initColWidth - partialArea
-      return { 'margin-left': `${pointleft}px`, 'width': `${pointWidth}px`}
-    }
-
-    // Calculates position and width of the flight points RIX/PRG
-    const flightDurationElPrev = document.querySelector(`.flightdur_${aircraftReg}_${flightIndex-1}`) as HTMLElement
-    const pointLeft = flightDurationElPrev.offsetLeft + flightDurationElPrev.offsetWidth
-    const pointWidth = flightDurationEl.offsetLeft - pointLeft
-
-
-
-    return { 'margin-left': `${pointLeft}px`, 'width': `${pointWidth}px`}
-  }
 
   /**
    * Sets the flight column width and background depending on the current zoom

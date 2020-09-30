@@ -146,17 +146,6 @@ $grid-width: 169px;
     background-size: 7px 7px;
 }
 
-.flight-duration {
-  position: absolute;
-  height: 44px;
-  width: 7px;
-  top: 0;
-  left: 0;
-  background: #45a6f9c2;
-  border-left: 1px solid #368cd6;
-  border-right: 1px solid #368cd6;
-}
-
 .flight-maintenance{
   position: absolute;
   height: 43px;
@@ -167,14 +156,4 @@ $grid-width: 169px;
   border-left: 1px solid #ad2525;
   border-right: 1px solid #ad2525;
   z-index: 1;
-}
-
-.flight-point{
-  position: absolute;
-  height: 44px;
-  line-height: 44px;
-  font-size: 0.82em;
-  text-align: center;
-  top: 0;
-  left: 0;
 }

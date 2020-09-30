@@ -57,26 +57,10 @@
                     <!-- FLIGHT COLUMNS BASED ON DATES -->
                     <div *ngFor="let c of [].constructor(flightDates.length)"class="flight-col" [ngStyle]="getFlightColStyle()"></div>
 
-                    <ng-container *ngFor="let flight of flightData.data; let idx = index" >
                       <!--FLIGHT DURATION-->
-                      <!-- <div [attr.id]="'flightdur_' + flightData.aircraftReg + '_'+ idx" class="flight-duration" -->
-                      <div class="flight-duration flightdur_{{flightData.aircraftReg}}_{{idx}}"
-                      [ngStyle]="setFlightDuration(flight)" placement="top"
-                      ngbTooltip="{{flight.departureTime | flightHourFriendly}} - {{ flight.arrivalTime | flightHourFriendly }}"></div>
-                       <!-- DEPARTURE POINT -->
-                       <div #departurepoint class="flight-point departure" [ngStyle]="setFlightPoints(flightData.aircraftReg, idx, false)"placement="top" ngbTooltip="{{flight.departurePoint}}">
-
-                        <span [ngStyle]="{'font-size':departurepoint.offsetWidth > 20? '0.82em': '0'}">{{flight.departurePoint}}</span>
-
-                      </div>
-                      <!-- ARRIVAL POINT -->
-                       <div #arrivalpoint  *ngIf="idx == flightData.data.length - 1"  class="flight-point arrival" [ngStyle]="setFlightPoints(flightData.aircraftReg, idx, true, flight.arrivalTime)"
-                       placement="top" ngbTooltip="{{flight.arrivalPoint}}">
-
-                        <span [ngStyle]="{'font-size':arrivalpoint.offsetWidth > 20? '0.82em': '0'}">{{flight.arrivalPoint}}</span>
-
-                      </div>
-                    </ng-container>
+                    <app-flight-duration *ngFor="let flight of flightData.data; let idx = index" [index]="idx"
+                    [flight]="flight" [aircraftReg]="flightData.aircraftReg" [initColWidth]="initColWidth"
+                    [aircraftColWidth]="aircraftColWidth" [flightDataLength]="flightData.data.length"></app-flight-duration>
 
                   <!-- <div *ngIf="inx == 0" class="flight-maintenance"></div> -->
                 </div>

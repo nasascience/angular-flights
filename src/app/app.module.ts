@@ -10,12 +10,14 @@ import { HomeComponent } from './components/home/home.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FlightHourFriendlyPipe } from './pipes/flight-hour-friendly.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FlightDurationComponent } from './components/flight-duration/flight-duration.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    FlightHourFriendlyPipe
+    FlightHourFriendlyPipe,
+    FlightDurationComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,20 @@
+.flight-duration {
+  position: absolute;
+  height: 44px;
+  width: 7px;
+  top: 0;
+  left: 0;
+  background: #45a6f9c2;
+  border-left: 1px solid #368cd6;
+  border-right: 1px solid #368cd6;
+}
+
+.flight-point{
+  position: absolute;
+  height: 44px;
+  line-height: 44px;
+  font-size: 0.82em;
+  text-align: center;
+  top: 0;
+  left: 0;
+}
