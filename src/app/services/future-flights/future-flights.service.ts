@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class FutureFlightsService {
   baseUrl: string = '../../../assets/data'
-  //'https://raw.githubusercontent.com/nasascience/angular-flights/master/src/assets/data'
+
   constructor(private http: HttpClient) {}
 
   /**

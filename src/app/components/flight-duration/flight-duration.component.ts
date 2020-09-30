@@ -111,22 +111,29 @@ export class FlightDurationComponent implements OnInit {
    * @param string aircraftReg
    * @param number flightIndex - Flight Duration Index in array
    * @param boolean isLast - to check whether is the last item in the array
-   * @param string arrival Time point - to determine the position in the current time block. (This is used to calculate last arrival point area)
+   * @param IFutureFlight flightData
    * @returns style Type
    * */
-  setFlightPoints(aircraftReg : string, flightIndex: number, isLast: boolean, arrivalPoint?: string): NgStyle["ngStyle"] {
+  setFlightPoints(aircraftReg : string, flightIndex: number, isLast: boolean, flightData?: IFutureFlight): NgStyle["ngStyle"] {
+    const pixelHr = this.initColWidth / 24
+
     // Current flight Data
     const flightDurationEl = document.querySelector(`.flightdur_${aircraftReg}_${flightIndex}`) as HTMLElement
 
     if(flightIndex == 0){
       // Calculates position and width of the FIRST flight points RIX/PRG
-      const pointWidth = flightDurationEl.offsetLeft
-      return { 'margin-left': `${0}px`, 'width': `${pointWidth}px`}
+
+      const departuretime = this.parseFlightTime(flightData.departureTime) * pixelHr
+      const pointLeft = departuretime < 21?
+        flightDurationEl.offsetLeft - departuretime - this.initColWidth: flightDurationEl.offsetLeft - departuretime
+
+      const  pointWidth =  flightDurationEl.offsetLeft - pointLeft
+
+      return { 'margin-left': `${pointLeft}px`, 'width': `${pointWidth}px`}
     }else if (isLast){
       // Calculates position and width of the LAST flight points RIX/PRG
-      const pixelHr = this.initColWidth / 24
       const pointleft = flightDurationEl.offsetLeft + flightDurationEl.offsetWidth
-      const partialArea = this.parseFlightTime(arrivalPoint) * pixelHr
+      const partialArea = this.parseFlightTime(flightData.arrivalTime) * pixelHr
       const pointWidth = this.initColWidth - partialArea
       return { 'margin-left': `${pointleft}px`, 'width': `${pointWidth}px`}
     }

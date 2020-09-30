@@ -3,13 +3,13 @@
 [ngStyle]="setFlightDuration(flight)" placement="top"
 ngbTooltip="{{flight.departureTime | flightHourFriendly}} - {{ flight.arrivalTime | flightHourFriendly }}"></div>
  <!-- DEPARTURE POINT -->
- <div #departurepoint class="flight-point departure" [ngStyle]="setFlightPoints(aircraftReg, index, false)"placement="top" ngbTooltip="{{flight.departurePoint}}">
+ <div #departurepoint class="flight-point departure" [ngStyle]="setFlightPoints(aircraftReg, index, false, flight)"placement="top" ngbTooltip="{{flight.departurePoint}}">
 
   <span [ngStyle]="{'font-size':departurepoint.offsetWidth > 21? '0.82em': '0'}">{{flight.departurePoint}}</span>
 
 </div>
 <!-- ARRIVAL POINT -->
- <div #arrivalpoint  *ngIf="index == flightDataLength - 1"  class="flight-point arrival" [ngStyle]="setFlightPoints(aircraftReg, index, true, flight.arrivalTime)"
+ <div #arrivalpoint  *ngIf="index == flightDataLength - 1"  class="flight-point arrival" [ngStyle]="setFlightPoints(aircraftReg, index, true, flight)"
  placement="top" ngbTooltip="{{flight.arrivalPoint}}">
 
   <span [ngStyle]="{'font-size':arrivalpoint.offsetWidth > 21? '0.82em': '0'}">{{flight.arrivalPoint}}</span>
