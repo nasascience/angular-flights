@@ -88,10 +88,11 @@
         <!-- FOOTER -->
         <div class="card-footer text-muted">
           <div class="zoom-range">
-            <span class="fas fa-undo zoom-reset-btn" (click)="resetZoom()"></span>
-            <span class="fas fa-search-minus zoom-minus-btn" (click)="zoomOut()"></span>
+            <!-- <span class="fas fa-undo zoom-reset-btn" (click)="resetZoom()"></span> -->
+            <span class="material-icons zoom-reset-btn" (click)="resetZoom()">cached</span>
+            <span class="material-icons zoom-minus-btn" (click)="zoomOut()">zoom_out</span>
             <input style="width: 150px" type="range" class="custom-range" min="84" max="550" [(ngModel)]="initColWidth"/>
-            <span class="fas fa-search-plus zoom-plus-btn" (click)="zoomIn()"></span>
+            <span class="material-icons zoom-plus-btn" (click)="zoomIn()">zoom_in</span>
           </div>
         </div>
       </div>
