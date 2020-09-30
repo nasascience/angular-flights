@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FutureFlightsService } from '../../services/future-flights/future-flights.service';
 import { IFutureFlightData, IFutureFlight } from '../../interfaces/future-flight'
 import { LoaderService } from '../../services/loader/loader.service'
-import { HelperService } from '../../services/helper/helper.service'
 import { NgStyle } from '@angular/common';
-import { forkJoin, Observable } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -24,8 +22,7 @@ export class HomeComponent implements OnInit {
   aircraftColWidth: number = 168
   constructor(
     private futureFlightsService: FutureFlightsService,
-    private loaderService: LoaderService,
-    private helperService: HelperService) { }
+    private loaderService: LoaderService) { }
 
   ngOnInit(): void {
 
