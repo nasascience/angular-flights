@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
       .subscribe(x => {
         this.aircrafts = this.selectedAircrafts = x
         // I suggest the aircraft data retrieved from the service also returns the flight data
-        this.getFutureFligtsForSelectedAircrafts()
+        this.getAllFutureAircraftsFligtsData()
         this.loaderService.hideLoader()
       }, error => {
         alert(error.message)
@@ -46,9 +46,9 @@ export class HomeComponent implements OnInit {
   }
 
   /**
-   * Gets the future fligts data from the server and sets up the fligts data grid
+   * Gets the future fligts data from the server based on all aircraft regs loaded and sets up the fligts data grid
    * */
-  getFutureFligtsForSelectedAircrafts() {
+  getAllFutureAircraftsFligtsData() { //getAllFutureFligtsForSelectedAircrafts
     this.loaderService.showLoader()
 
     if(this.selectedAircrafts.length == 0){
@@ -63,7 +63,6 @@ export class HomeComponent implements OnInit {
     source.subscribe(allAircraftData => {
 
       this.selectedFlightsData = allAircraftData
-      console.log("flightsData", this.selectedFlightsData)
 
       this.buildDateColumns(allAircraftData)
       this.loaderService.hideLoader()
@@ -76,15 +75,37 @@ export class HomeComponent implements OnInit {
 
   /**
   * Filters the Aircraft column list from the multi select dropdown
+  *  @param string data aircraftReg
   * */
-  filterAircraft(event: any, aircraft: string) {
-    if (event.target.checked)
-      this.selectedAircrafts.push(aircraft)
-    else
-      this.selectedAircrafts = this.selectedAircrafts.filter(x => x != aircraft)
+  filterAircraft(event: any, aircraftReg: string) {
+    if (event.target.checked){
+      this.loaderService.showLoader()
 
+      // I assume we want to reload the data everytime we check on the aircraft
+      // Get from server the checked flight data
+      this.futureFlightsService.getFutureFlights(aircraftReg)
+      .subscribe(flightsData =>{
+        // Loading and adding the data from service based on the checked item
+        this.selectedAircrafts.push(aircraftReg)
+        this.selectedFlightsData.push(flightsData)
+        this.loaderService.hideLoader()
+        this.sortGridData()
+      }, error=>{
+        this.loaderService.hideLoader()
+        alert(error.message)
+      })
+    }
+    else{
+      // Removing the data from service based on the checked item
+      this.selectedAircrafts = this.selectedAircrafts.filter(x => x != aircraftReg)
+      this.selectedFlightsData =  this.selectedFlightsData.filter(x => x.aircraftReg != aircraftReg)
+      this.sortGridData()
+    }
+  }
+
+  sortGridData(){
     this.selectedAircrafts.sort()
-    this.getFutureFligtsForSelectedAircrafts()
+    this.selectedFlightsData.sort((a, b) => (a.aircraftReg > b.aircraftReg) ? 1 : -1)
   }
 
   /**

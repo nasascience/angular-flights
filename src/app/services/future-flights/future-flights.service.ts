@@ -27,9 +27,9 @@ export class FutureFlightsService {
   }
 
   /**
-* Get all Aircrafts Reg
-* @returns Observable<string[]>
-* */
+  * Get all Aircrafts Reg
+  * @returns Observable<string[]>
+  * */
   getAircrafts(): Observable<string[]> {
     return this.http.get<string[]>(`${this.baseUrl}/aircrafts.json`)
   }
